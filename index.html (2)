@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Free Earning</title>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:sans-serif;
+}
+
+body{
+background:#0f172a;
+display:flex;
+justify-content:center;
+color:white;
+}
+
+.app{
+width:390px;
+min-height:100vh;
+background:#111827;
+padding-bottom:80px;
+}
+
+.header{
+background:#1e293b;
+padding:18px;
+display:flex;
+gap:12px;
+align-items:center;
+}
+
+.avatar{
+width:45px;
+height:45px;
+border-radius:50%;
+background:#22c55e;
+display:flex;
+align-items:center;
+justify-content:center;
+font-weight:bold;
+}
+
+.balance-box{
+background:#1f2937;
+margin:20px;
+padding:20px;
+border-radius:12px;
+text-align:center;
+}
+
+.balance{
+font-size:34px;
+color:#22c55e;
+margin-top:10px;
+}
+
+.btn{
+padding:12px;
+border:none;
+border-radius:10px;
+cursor:pointer;
+font-weight:bold;
+}
+
+.buttons{
+display:flex;
+gap:10px;
+margin-top:15px;
+}
+
+.earn-btn{
+background:#22c55e;
+color:black;
+flex:1;
+}
+
+.withdraw-btn{
+background:#f97316;
+color:black;
+flex:1;
+}
+
+.watch-btn{
+width:100%;
+padding:14px;
+background:#22c55e;
+border:none;
+border-radius:10px;
+font-size:16px;
+font-weight:bold;
+cursor:pointer;
+}
+
+.stats{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:10px;
+padding:20px;
+}
+
+.stat{
+background:#1f2937;
+padding:15px;
+border-radius:10px;
+text-align:center;
+}
+
+.page{
+display:none;
+padding-bottom:40px;
+}
+
+.page.active{
+display:block;
+}
+
+.progress-bar{
+height:10px;
+background:#374151;
+border-radius:10px;
+overflow:hidden;
+margin:10px 0;
+}
+
+.progress-fill{
+height:100%;
+width:0%;
+background:#22c55e;
+}
+
+.withdraw-page{
+padding:20px;
+}
+
+input,select{
+width:100%;
+padding:12px;
+margin-top:5px;
+margin-bottom:15px;
+border:none;
+border-radius:10px;
+background:#374151;
+color:white;
+}
+
+.submit-btn{
+width:100%;
+padding:14px;
+background:#f97316;
+border:none;
+border-radius:10px;
+font-weight:bold;
+cursor:pointer;
+}
+
+.navbar{
+position:fixed;
+bottom:0;
+width:390px;
+background:#1e293b;
+display:flex;
+justify-content:space-around;
+padding:12px;
+}
+
+.nav-btn{
+background:none;
+border:none;
+color:#9ca3af;
+font-size:14px;
+cursor:pointer;
+}
+
+.nav-btn.active{
+color:#22c55e;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="app">
+
+<div class="header">
+<div class="avatar">U</div>
+<div>
+<h3>User</h3>
+<p style="font-size:12px;color:#9ca3af">Flash Member</p>
+</div>
+</div>
+
+<!-- HOME -->
+
+<div id="home" class="page active">
+
+<div class="balance-box">
+
+<p>Your Balance</p>
+
+<div class="balance" id="balance">0.00 ৳</div>
+
+<div class="buttons">
+<button class="btn earn-btn" onclick="showPage('earn')">Earn</button>
+<button class="btn withdraw-btn" onclick="showPage('withdraw')">Withdraw</button>
+</div>
+
+</div>
+
+<div class="stats">
+
+<div class="stat">
+<h2 id="ads">0</h2>
+<p>Ads Watched</p>
+</div>
+
+<div class="stat">
+<h2 id="earned">0.00</h2>
+<p>Total Earn</p>
+</div>
+
+</div>
+
+</div>
+
+<!-- EARN -->
+
+<div id="earn" class="page">
+
+<div style="padding:20px">
+
+<p>Daily Ads</p>
+<p><span id="adsCount">0</span>/100</p>
+
+<div class="progress-bar">
+<div class="progress-fill" id="progress"></div>
+</div>
+
+<button class="watch-btn" onclick="watchAd()">Watch Ad +0.50 ৳</button>
+
+</div>
+
+</div>
+
+<!-- WITHDRAW -->
+
+<div id="withdraw" class="page">
+
+<div class="withdraw-page">
+
+<h3>Withdraw</h3>
+
+<form id="withdrawForm">
+
+<label>Method</label>
+
+<select>
+<option>bKash</option>
+<option>Nagad</option>
+</select>
+
+<label>Account</label>
+
+<input required>
+
+<label>Amount</label>
+
+<input type="number" id="amount" required>
+
+<button class="submit-btn">Request Withdraw</button>
+
+</form>
+
+</div>
+
+</div>
+
+<!-- PROFILE -->
+
+<div id="profile" class="page">
+
+<div style="padding:20px">
+
+<h3>Profile</h3>
+
+<p>User Name : Flash User</p>
+<p>Status : Active</p>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- NAVBAR -->
+
+<div class="navbar">
+
+<button class="nav-btn active" onclick="nav('home',this)">Home</button>
+<button class="nav-btn" onclick="nav('earn',this)">Earn</button>
+<button class="nav-btn" onclick="nav('withdraw',this)">Withdraw</button>
+<button class="nav-btn" onclick="nav('profile',this)">Profile</button>
+
+</div>
+
+
+<!-- Monetag SDK -->
+
+<script src='//libtl.com/sdk.js' data-zone='11206313' data-sdk='show_11206313'></script>
+
+<script>
+
+const reward=0.50
+const limit=100
+
+if(!localStorage.balance){
+
+localStorage.balance=0
+localStorage.ads=0
+
+}
+
+function update(){
+
+let balance=parseFloat(localStorage.balance)
+let ads=parseInt(localStorage.ads)
+
+balance=parseFloat(balance)
+
+document.getElementById("balance").innerText=balance.toFixed(2)+" ৳"
+document.getElementById("earned").innerText=balance.toFixed(2)
+document.getElementById("ads").innerText=ads
+document.getElementById("adsCount").innerText=ads
+
+let percent=(ads/limit)*100
+document.getElementById("progress").style.width=percent+"%"
+
+}
+
+update()
+
+function watchAd(){
+
+let ads=parseInt(localStorage.ads)
+
+if(ads>=limit){
+
+alert("Daily limit finished")
+return
+
+}
+
+if(typeof show_11206313==="function"){
+
+show_11206313().then(()=>{
+
+localStorage.balance=parseFloat(localStorage.balance)+reward
+localStorage.ads=ads+1
+
+update()
+
+})
+
+}else{
+
+alert("Ad not loaded")
+
+}
+
+}
+
+document.getElementById("withdrawForm").onsubmit=function(e){
+
+e.preventDefault()
+
+let amount=parseFloat(document.getElementById("amount").value)
+let balance=parseFloat(localStorage.balance)
+
+if(amount>balance){
+
+alert("Not enough balance")
+return
+
+}
+
+localStorage.balance=balance-amount
+
+update()
+
+alert("Withdraw request sent")
+
+}
+
+function showPage(id){
+
+document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"))
+document.getElementById(id).classList.add("active")
+
+}
+
+function nav(page,el){
+
+showPage(page)
+
+document.querySelectorAll(".nav-btn").forEach(b=>b.classList.remove("active"))
+el.classList.add("active")
+
+}
+
+</script>
+
+</body>
+</html>
